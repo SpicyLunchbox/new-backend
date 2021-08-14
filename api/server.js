@@ -15,8 +15,8 @@ server.use(cors())
 server.use('/api/users', usersRouter);
 server.use('/api/equipment', equipmentRouter);
 
-server.get('/', (res) => {
-    res.json({ api: "up"})
+server.get('/', (req, res) => {
+    res.status(200).json({ api: "up"})
 })
 
 server.use((err, req, res, next) => { // eslint-disable-line
