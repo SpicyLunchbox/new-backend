@@ -15,7 +15,7 @@ server.use(cors())
 server.use('/api/users', usersRouter);
 server.use('/api/equipment', equipmentRouter);
 
-server.get('/', (req,res) => {
+server.get('/', (res) => {
     res.json({ api: "up"})
 })
 

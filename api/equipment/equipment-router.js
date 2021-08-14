@@ -15,13 +15,13 @@ router.get('/:id', (req,res,next) => {
 
 
 // allows for you to edit equipment
-router.put('/:id', (req,res,next) => {
+router.put('/:id', (req,res) => {
     const changes = req.body
     Users.updateEquipmentInfo(req.params.id, changes)
         .then(res => {
             res.status(201).json('equipment updated successfully')
         })
-        .catch(err => {
+        .catch(() => {
             res.status(201).json('equipment updated successfully') //function is throwing an error, but changes are coming through in database?
         })
 })
@@ -63,7 +63,7 @@ router.post('/createEquipment/:id', mw.restrict, (req,res,next) => {
 
 
     Users.addEquipment(equipment)
-        .then(equipment => {
+        .then(() => {
             res.status(201).json('successfully created new equipment');
         })
         .catch(next)
@@ -82,7 +82,7 @@ router.put('/rentEquipment/:id', mw.restrict, (req,res,next) => {
             if(count > 0){
                 res.status(201).json({message: `update successful`})
             }else{
-                res.status(404).json(message.err)
+                res.status(404).json()
             }
         })
         .catch(next)
@@ -97,7 +97,7 @@ router.put('/returnEquipment/:id', mw.restrict, (req,res,next) => {
             if(count > 0){
                 res.status(201).json({message: `equipment returned`})
             }else{
-                res.status(404).json(message.err)
+                res.status(404).json()
             }
         })
         .catch(next)
