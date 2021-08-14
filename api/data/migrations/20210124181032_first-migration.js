@@ -1,14 +1,39 @@
-exports.up = async (knex) => {
-  await knex.schema
-    .createTable('users', (users) => {
-      users.increments('user_id')
-      users.string('user_username', 200).notNullable()
-      users.string('user_password', 200).notNullable()
-      users.string('user_email', 320).notNullable()
-      users.timestamps(false, true)
-    })
-}
+exports.up = function(knex) {
+  return knex.schema
+  .createTable('users', tbl => {
+      tbl.increments('user_id')
+      tbl.string('username', 128)
+          .unique()
+          .notNullable()
+      tbl.string('password', 128)
+          .notNullable()
+      tbl.string('user_type')
+          .notNullable()
+          .default('renter')
+  })
+  .createTable('equipment', tbl => {
+      tbl.increments('equipment_id')
+      tbl.string('equipment_name', 128)
+          .notNullable()
+      tbl.string('equipment_description')
+      tbl.integer('owner_id')
+          .notNullable()
+          .unsigned()
+          .references('user_id')
+          .inTable('users')
+          .onUpdate('CASCADE')
+          .onDelete('CASCADE')
+      tbl.integer('renter_id')
+          .unsigned()
+          .references('user_id')
+          .inTable('users')
+          .onUpdate('RESTRICT')
+          .onDelete('RESTRICT')
+  })
+};
 
-exports.down = async (knex) => {
-  await knex.schema.dropTableIfExists('users')
-}
+exports.down = function(knex) {
+  return knex.schema
+  .dropTableIfExists('equipment')
+  .dropTableIfExists('users')
+};
