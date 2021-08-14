@@ -4,9 +4,9 @@ exports.seed = function(knex) {
       .then(function () {
         // Inserts seed entries
         return knex('users').insert([
-          {username: 'user1', password: '$2a$08$yxq4ZrmvRRDqktMadY54LOEIbmioEgBmPRcXx0/.xD0RGmLwc3S4G', user_type:'renter'},  //passwords must be fixed
-          {username: 'user2', password: '$2a$08$yxq4ZrmvRRDqktMadY54LOEIbmioEgBmPRcXx0/.xD0RGmLwc3S4G', user_type:'owner'},
-          {username: 'user3', password: '$2a$08$yxq4ZrmvRRDqktMadY54LOEIbmioEgBmPRcXx0/.xD0RGmLwc3S4G', user_type:'both'}
+          {username: 'user1', password: '$2a$08$yxq4ZrmvRRDqktMadY54LOEIbmioEgBmPRcXx0/.xD0RGmLwc3S4G'},
+          {username: 'user2', password: '$2a$08$yxq4ZrmvRRDqktMadY54LOEIbmioEgBmPRcXx0/.xD0RGmLwc3S4G'},
+          {username: 'user3', password: '$2a$08$yxq4ZrmvRRDqktMadY54LOEIbmioEgBmPRcXx0/.xD0RGmLwc3S4G'}
         ]);
       });
   };

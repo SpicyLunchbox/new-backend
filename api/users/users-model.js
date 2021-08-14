@@ -8,7 +8,6 @@ module.exports = {
     findRenterEquipment,
     findEquipment,
     addEquipment,
-    updateEquipment,
     deleteEquipment,
     findEquipmentById,
     updateEquipmentInfo
@@ -17,7 +16,7 @@ module.exports = {
 // finds user in database by user_id and pulls all columns from users table
 function findById(user_id) {
     return db('users')
-        .select('user_id', 'username', 'password', 'user_type')
+        .select('user_id', 'username', 'password')
         .where('user_id', user_id)
         .first()
 }
@@ -25,7 +24,7 @@ function findById(user_id) {
 // finds user in database by username and pulls all columns from users table
 function findByUsername(username) {
     return db('users')
-        .select('user_id', 'username', 'password', 'user_type')
+        .select('user_id', 'username', 'password')
         .where('username', username)
         .first()
 }
@@ -44,7 +43,7 @@ function addEquipment(equipment) {
 // finds owner in database and pulls all owner equipment
 function findOwnerEquipment(owner_id) {
     return db('equipment')
-        .select('equipment_id', 'equipment_name', 'equipment_description', 'renter_id', 'owner_id')
+        .select('equipment_id', 'equipment_name', 'equipment_description','owner_id')
         .where('owner_id', owner_id)
 }
 
@@ -52,7 +51,7 @@ function findOwnerEquipment(owner_id) {
 // finds renter in database and pulls all rented equipment
 function findRenterEquipment(renter_id) {
     return db('equipment')
-        .select('equipment_id', 'equipment_name', 'equipment_description', 'owner_id', 'renter_id')
+        .select('equipment_id', 'equipment_name', 'equipment_description', 'owner_id')
         .where('renter_id', renter_id)
 }
 
@@ -60,24 +59,24 @@ function findRenterEquipment(renter_id) {
 // finds equipment in database of a particular name
 function findEquipment() {
     return db('equipment')
-        .select('equipment_id', 'equipment_name', 'equipment_description', 'owner_id', 'renter_id')
+        .select('equipment_id', 'equipment_name', 'equipment_description', 'owner_id')
 }
 
 // finds one equipment in database based off of equipment_id
 function findEquipmentById(equipment_id) {
     return db('equipment')
-        .select('equipment_id', 'equipment_name', 'equipment_description', 'owner_id', 'renter_id')
+        .select('equipment_id', 'equipment_name', 'equipment_description', 'owner_id')
         .where('equipment_id', equipment_id)
         .first()
 }
 
 
-// updates equipment for renter
-function updateEquipment(equipment_id, renter_id) {
-    return db('equipment')
-        .where('equipment_id', equipment_id)
-        .update('renter_id', renter_id)
-}
+// // updates equipment for renter
+// function updateEquipment(equipment_id, renter_id) {
+//     return db('equipment')
+//         .where('equipment_id', equipment_id)
+//         .update('renter_id', renter_id)
+// }
 
 
 // updates equipment

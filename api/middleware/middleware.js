@@ -25,7 +25,7 @@ const restrict = (req,res,next) => {
 // checks username and password presence
 const checkCredentials = (req,res,next) => {
     const {username, password} = req.body;
-    const valid = Boolean(username && password && typeof password === 'string');
+    const valid = Boolean(username && password);
 
     if(valid) {
         next()
@@ -34,17 +34,17 @@ const checkCredentials = (req,res,next) => {
     }
 }
 
-// checks if form user_type is owner, renter, or both
-const checkUserType = (req,res,next) => {
-    const {user_type} = req.body;
-    const valid = Boolean(user_type === 'owner' || user_type === 'renter' || user_type === 'both')
+// // checks if form user_type is owner, renter, or both
+// const checkUserType = (req,res,next) => {
+//     const {user_type} = req.body;
+//     const valid = Boolean(user_type === 'owner' || user_type === 'renter' || user_type === 'both')
 
-    if(valid) {
-        next()
-    }else{
-        res.status(422).json({message: `Please provide a valid user type. must be owner, renter, or both`})
-    }
-}
+//     if(valid) {
+//         next()
+//     }else{
+//         res.status(422).json({message: `Please provide a valid user type. must be owner, renter, or both`})
+//     }
+// }
 
 // checks if username already exists in database.  sends an error if username already exists.
 const checkUserIsUnique = (req,res,next) => {
@@ -81,7 +81,6 @@ const checkUserExists = (req,res,next) => {
 module.exports = {
     restrict,
     checkCredentials,
-    checkUserType,
     checkUserIsUnique,
     checkUserExists
 }

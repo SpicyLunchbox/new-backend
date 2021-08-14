@@ -36,14 +36,14 @@ router.get('/', (req,res,next) => {
 })
 
 
-// pulls all rented equipment
-router.get('/renter/:id', mw.restrict, (req,res,next) => {
-    Users.findRenterEquipment(req.params.id)
-        .then(equipment => {
-            res.status(200).json(equipment)
-        })
-        .catch(next)
-})
+// // pulls all rented equipment
+// router.get('/renter/:id', mw.restrict, (req,res,next) => {
+//     Users.findRenterEquipment(req.params.id)
+//         .then(equipment => {
+//             res.status(200).json(equipment)
+//         })
+//         .catch(next)
+// })
 
 
 // pulls all owned equipment
@@ -70,38 +70,38 @@ router.post('/createEquipment/:id', mw.restrict, (req,res,next) => {
 })
 
 // allows for rental of owned piece of equipment
-router.put('/rentEquipment/:id', mw.restrict, (req,res,next) => {
-    let equipment_id = req.body.equipment_id
-    let currentRenter_id = req.body.renter_id
-    if(currentRenter_id != null){
-        res.status(422).json({message: `this equipment is already rented out`})
-    }else{
-        let newRenter_id = req.params.id
-    Users.updateEquipment(equipment_id, newRenter_id)
-        .then(count => {
-            if(count > 0){
-                res.status(201).json({message: `update successful`})
-            }else{
-                res.status(404).json()
-            }
-        })
-        .catch(next)
-    }
-})
+// router.put('/rentEquipment/:id', mw.restrict, (req,res,next) => {
+//     let equipment_id = req.body.equipment_id
+//     let currentRenter_id = req.body.renter_id
+//     if(currentRenter_id != null){
+//         res.status(422).json({message: `this equipment is already rented out`})
+//     }else{
+//         let newRenter_id = req.params.id
+//     Users.updateEquipment(equipment_id, newRenter_id)
+//         .then(count => {
+//             if(count > 0){
+//                 res.status(201).json({message: `update successful`})
+//             }else{
+//                 res.status(404).json()
+//             }
+//         })
+//         .catch(next)
+//     }
+// })
 
 //returns equipment
-router.put('/returnEquipment/:id', mw.restrict, (req,res,next) => {
-    let equipment_id = req.params.id
-    Users.updateEquipment(equipment_id, null)
-        .then(count => {
-            if(count > 0){
-                res.status(201).json({message: `equipment returned`})
-            }else{
-                res.status(404).json()
-            }
-        })
-        .catch(next)
-})
+// router.put('/returnEquipment/:id', mw.restrict, (req,res,next) => {
+//     let equipment_id = req.params.id
+//     Users.updateEquipment(equipment_id, null)
+//         .then(count => {
+//             if(count > 0){
+//                 res.status(201).json({message: `equipment returned`})
+//             }else{
+//                 res.status(404).json()
+//             }
+//         })
+//         .catch(next)
+// })
 
 // deletes equipment
 router.delete('/deleteEquipment/:id', mw.restrict, (req,res,next) => {
